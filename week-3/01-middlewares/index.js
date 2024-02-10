@@ -3,9 +3,7 @@ const app = express();
 const mongoose = require("mongoose");
 app.use(express.json());
 
-mongoose.connect(
-  "mongodb+srv://aryanpachori03:asWReakPkuZ80d89@aryan.k9vagyu.mongodb.net/"
-);
+
 
 const User = mongoose.model('Users', {
   name: String,
