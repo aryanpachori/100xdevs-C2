@@ -1,36 +1,49 @@
-import { useMemo } from "react";
-import { useState } from "react";
+import { useRecoilValue, useSetRecoilState, RecoilRoot } from "recoil";
+import { countAtom, evenSelector } from "./store/atom/count";
 
 function App() {
-  const [counter, setCounter] = useState(0);
-  const [inputval, setInputval] = useState(1);
-
-  let finalcount = useMemo(()=>{
-    let sum = 0;
-    for (let i = 0; i < inputval; i++) {
-      sum = i + sum;
-    }
-    return sum
-  },[inputval]) 
+  return (
+    <RecoilRoot>
+      <Count />
+    </RecoilRoot>
+  );
+}
+function Even() {
+  const even = useRecoilValue(evenSelector);
+  return <div>{even ? "It is even" : null}</div>;
+}
+function Count() {
   return (
     <div>
-      <input
-        onChange={(e) => {
-          setInputval(e.target.value);
-        }}
-        placeholder="enter the number"
-      ></input>
-      <br />
-      <label>
-        Sum from 1 to {inputval} is {finalcount}
-      </label>
-      <br />
+      <CountRender />
+      <Buttons />
+      <Even />
+    </div>
+  );
+}
+function CountRender() {
+  const count = useRecoilValue(countAtom);
+
+  return <div>{count}</div>;
+}
+function Buttons() {
+  const setCount = useSetRecoilState(countAtom);
+
+  return (
+    <div>
       <button
         onClick={() => {
-          setCounter(counter + 1);
+          setCount((count) => count + 1);
         }}
       >
-        counter ({counter})
+        Increment
+      </button>
+      <button
+        onClick={() => {
+          setCount((count) => count - 1);
+        }}
+      >
+        Decrement
       </button>
     </div>
   );
