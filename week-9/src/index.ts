@@ -20,4 +20,6 @@ async function getUser(email: string) {
   }
 }
 
+
+
 getUser("user5@example.com").catch(console.error);
