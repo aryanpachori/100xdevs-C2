@@ -1,21 +1,11 @@
 interface User {
   name: string;
   age: number;
+  email: string;
+  password: string;
 }
+type userPfp = Pick<User, "name" | "age" | "email">;
 
-function sumOfAge(user1: User, user2: User) {
-  return user1.age + user2.age;
+function sumOfAge(user: userPfp) {
+  //database calls
 }
-
-// Example usage
-const result = sumOfAge(
-  {
-    name: "harkirat",
-    age: 20,
-  },
-  {
-    name: "raman",
-    age: 21,
-  }
-);
-console.log(result); // Output: 9

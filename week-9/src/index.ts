@@ -1,25 +1,33 @@
-import { Client } from "pg";
+import { QueryResult } from "pg";
 
-async function getUser(email: string) {
-  const client = new Client({
-    connectionString:
-      "postgresql://aryanpachori03:v6dbrApZYiF1@ep-shiny-surf-63404482.ap-southeast-1.aws.neon.tech/Test?sslmode=require",
-  });
+// Import the pg library
+const { Client } = require('pg');
 
-  await client.connect();
-  const query = "SELECT * FROM users WHERE email = $1";
-  const values = [email];
-  const result = await client.query(query, values);
+// Define your connection string (replace placeholders with your actual data)
+const connectionString = 'postgresql://postgres:mysecretpassword@localhost:5432/postgres';
 
-  if (result.rows.length > 0) {
-    console.log("User found:", result.rows[0]);
-    return result.rows[0];
+// Create a new client instance with the connection string
+const client = new Client({
+  connectionString: connectionString
+});
+type error = String;
+// Connect to the database
+client.connect((err : Error) => {
+  if (err) {
+    console.error('connection error', err.stack);
   } else {
-    console.log("No user found with the given email.");
-    return null;
+    console.log('connected to the database');
   }
-}
+});
 
+// Run a simple query (Example: Fetching the current date and time from PostgreSQL)
+client.query('SELECT NOW()', (err : Error, res : QueryResult) => {
+  if (err) {
+    console.error(err);
+  } else {
+    console.log(res.rows[0]);
+  }
 
-
-getUser("user5@example.com").catch(console.error);
+  // Close the connection
+  client.end();
+});
