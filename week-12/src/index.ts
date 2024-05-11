@@ -7,5 +7,6 @@ interface User {
 type userPfp = Pick<User, "name" | "age" | "email">;
 
 function sumOfAge(user: userPfp) {
-  //database calls
+  
 }
+
