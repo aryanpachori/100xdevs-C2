@@ -14,6 +14,7 @@ function Gradient({
   className?: string;
 }): JSX.Element {
   return (
+    
     <span
       className={[
         styles.gradient,
