@@ -20,7 +20,7 @@ app.post("/signin", (req, res) => {
   res.cookies("token", token);
   res.send("Logged in!");
 });
-// @ts-ignore
+
 app.get("/user", (req, res) => {
   const token = req.cookies.token;
   const decoded = jwt.verify(token, JWT_SECRET);
